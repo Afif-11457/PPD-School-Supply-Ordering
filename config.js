@@ -662,3 +662,4 @@ async function updateItemName(oldName, newName) {
     return { success: false, error: error.message };
   }
 }
+
