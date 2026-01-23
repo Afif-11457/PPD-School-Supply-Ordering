@@ -1,0 +1,378 @@
+
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Registration Account</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #d4e8ff 0%, #e8f4ff 50%, #dceeff 100%);
+    position: relative;
+    overflow-x: hidden;
+  }
+  
+  body::before {
+    content: '';
+    position: fixed;
+    top: -5%;
+    right: -10%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle at center, rgba(66,165,245,0.25) 0%, rgba(66,165,245,0.12) 35%, transparent 65%);
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
+    animation: float 22s ease-in-out infinite;
+  }
+  
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -5%;
+    left: -15%;
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle at center, rgba(76,175,80,0.2) 0%, rgba(76,175,80,0.08) 40%, transparent 70%);
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
+    animation: float-reverse 26s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) translateX(0);
+    }
+    50% {
+      transform: translateY(-30px) translateX(20px);
+    }
+  }
+  
+  @keyframes float-reverse {
+    0%, 100% {
+      transform: translateY(0) translateX(0);
+    }
+    50% {
+      transform: translateY(30px) translateX(-20px);
+    }
+  }
+  
+  body {
+    background: 
+      linear-gradient(135deg, #d4e8ff 0%, #e8f4ff 50%, #dceeff 100%),
+      radial-gradient(circle 500px at 20% 80%, rgba(76,175,80,0.08) 0%, transparent 50%),
+      radial-gradient(circle 450px at 85% 15%, rgba(66,165,245,0.08) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  .pattern-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.2) 0,
+        rgba(255,255,255,0.2) 2px,
+        transparent 3px,
+        transparent 20px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        rgba(255,255,255,0.2) 0,
+        rgba(255,255,255,0.2) 2px,
+        transparent 3px,
+        transparent 20px
+      );
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .container {
+    position: relative;
+    background: #fff;
+    border-radius: 28px;
+    padding: 40px 36px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(25,118,210,0.15), 0 3px 12px rgba(0,0,0,0.08);
+    z-index: 5;
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  h2 {
+    color: #1976d2;
+    margin-bottom: 24px;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 12px;
+    border-radius: 12px;
+    border: 2px solid #e3f0ff;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+  }
+  
+  input:focus {
+    outline: none;
+    border-color: #1976d2;
+    box-shadow: 0 0 0 3px rgba(25,118,210,0.1);
+  }
+
+  button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #43a047 0%, #66bb6a 100%);
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(67,160,71,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+  
+  button:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+  
+  button:hover { 
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(67,160,71,0.4);
+  }
+  
+  button:active {
+    transform: translateY(-1px);
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 16px;
+    color: #1976d2;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  a:hover {
+    text-decoration: underline;
+    color: #125ea2;
+  }
+
+  @media(max-width:500px){
+    .container { padding: 32px 24px; }
+    input { padding: 8px; font-size: 14px; }
+    button { padding: 10px; font-size: 15px; }
+  }
+
+  /* Loading animation */
+  .loading {
+    display: inline-block;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* Keyboard Focus Styles */
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(67,160,71,0.4), 0 6px 20px rgba(67,160,71,0.4);
+    transform: translateY(-3px) scale(1.05);
+  }
+
+  button.keyboard-focused {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(67,160,71,0.4), 0 6px 20px rgba(67,160,71,0.4);
+    transform: translateY(-3px) scale(1.05);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Daftar Akaun Baru</h2>
+  <input type="text" id="name" placeholder="Nama Staff" required>
+  <input type="email" id="email" placeholder="Email Staff" required>
+  <input type="password" id="password" placeholder="Kata Laluan: Minimum 6 karakter" required>
+  
+  <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+  
+  <p style="font-size: 14px; color: #666; margin-top: 6px; margin-bottom:6px;">Hint Word. </p>
+  <p style="font-size: 14px; color: #666; margin-top: 7px; margin-bottom:7px;">Digunakan untuk set semula password jika terlupa.</p>
+  <input type="text" id="hintWord" placeholder="contoh: Ibu">
+  
+  <button id="submitRegister" type="button">Daftar</button>
+  <a href="index.html">Kembali ke Log masuk</a>
+</div>
+
+<div class="pattern-overlay"></div>
+<script src="config.js"></script>
+
+<script>
+// REGISTRATION HANDLER
+// Creates new user account with validation
+// Prevents duplicate emails, syncs to Google Sheet and localStorage
+document.getElementById('submitRegister').addEventListener('click', async ()=>{
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const securityQuestion = '';
+  const securityAnswer = '';
+  const hint = (document.getElementById('hintWord') && document.getElementById('hintWord').value.trim()) || '';
+  const btn = document.getElementById('submitRegister');
+
+  // ===== TAMBAHAN VALIDASI WAJIB =====
+  if(!name){
+    alert('Sila masukkan Nama Staff');
+    return;
+  }
+  if(!email){
+    alert('Sila masukkan Email Staff');
+    return;
+  }
+  if(!password){
+    alert('Sila masukkan Kata Laluan');
+    return;
+  }
+  if(password.length < 6){
+    alert('❌ Kata Laluan mesti minimum 6 karakter');
+    return;
+  }
+  if(!hint){
+    alert('Sila masukkan Hint Word untuk reset password');
+    return;
+  }
+  // ===== TAMAT TAMBAHAN =====
+
+  // Check duplikat email
+  let users = JSON.parse(localStorage.getItem('users')||'[]');
+  if(users.some(u=>u.email.toLowerCase()===email.toLowerCase())){
+    alert('❌ Email sudah digunakan');
+    return;
+  }
+
+  // Show loading
+  btn.disabled = true;
+  btn.innerHTML = 'Memproses... <span class="loading">●</span>';
+
+  try {
+    let registerSuccess = false;
+
+    if (typeof isConfigured === 'function' && isConfigured()) {
+      try {
+        const result = await registerUser(name, email, password, securityQuestion, securityAnswer, hint);
+        if (result && result.success) {
+          users.push({name, email, password, hint});
+          localStorage.setItem('users', JSON.stringify(users));
+          alert('✅ Pendaftaran berjaya! Sila login.');
+          window.location.href='index.html';
+          registerSuccess = true;
+        }
+      } catch(e){
+        console.error('Register error:', e);
+      }
+    }
+
+    if (!registerSuccess) {
+      users.push({name, email, password, hint});
+      localStorage.setItem('users', JSON.stringify(users));
+      alert('✅ Pendaftaran berjaya! Sila login.');
+      window.location.href='index.html';
+    }
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Daftar';
+  }
+});
+</script>
+
+<script>
+// Keyboard Navigation for Buttons
+document.addEventListener('DOMContentLoaded', function() {
+  let currentFocusIndex = 0;
+  const buttons = Array.from(document.querySelectorAll('button'));
+
+  function focusButton(index) {
+    if (buttons.length === 0) return;
+    
+    index = (index + buttons.length) % buttons.length;
+    buttons.forEach(btn => btn.classList.remove('keyboard-focused'));
+    buttons[index].classList.add('keyboard-focused');
+    buttons[index].focus();
+    currentFocusIndex = index;
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      focusButton(currentFocusIndex - 1);
+    } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      focusButton(currentFocusIndex + 1);
+    }
+    else if (e.key === 'Enter') {
+      const focused = document.querySelector('button.keyboard-focused');
+      if (focused) {
+        e.preventDefault();
+        focused.click();
+      }
+    }
+  });
+
+  if (buttons.length > 0) {
+    focusButton(0);
+  }
+});
+</script>
+</body>
+</html>
+
+
+

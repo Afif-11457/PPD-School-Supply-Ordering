@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>View Real-Time Stock</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+body {
+  font-family: 'Poppins','Segoe UI',Arial,sans-serif;
+  margin:0;
+  padding:50px 0 0 0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* ---- Wave bawah (besar, lembut) ---- */
+body::before {
+  content:'';
+  position:fixed;
+  bottom:0; left:0;
+  width:200%; height:300px;
+  background: linear-gradient(135deg,#42a5f5,#90caf9);
+  border-radius: 45% 55% 0 0 / 20% 30% 0 0;
+  transform: rotate(0deg);
+  animation: waveMove 15s linear infinite;
+  opacity:0.25;
+  z-index:0;
+}
+
+body::after {
+  content:'';
+  position:fixed;
+  bottom:0; left:0;
+  width:200%; height:200px;
+  background: linear-gradient(135deg,#ffcc80,#ffe082);
+  border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+  animation: waveMoveReverse 10s linear infinite;
+  opacity:0.18;
+  z-index:0;
+}
+
+@keyframes waveMove {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-25%) translateY(-10px); }
+  100% { transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes waveMoveReverse {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-25%) translateY(5px); }
+  100% { transform: translateX(-50%) translateY(0); }
+}
+body::before, body::after { content: ''; position: fixed; width:100%; height:100%; z-index:0; pointer-events:none; }
+  body::before {
+    bottom:0; left:0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%231976d2" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,112C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') bottom center / 100% 250px no-repeat;
+    animation: wave-animation 15s ease-in-out infinite;
+  }
+  body::after {
+    top:0; left:0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2342a5f5" fill-opacity="0.06" d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,90.7C672,85,768,107,864,122.7C960,139,1056,149,1152,138.7C1248,128,1344,96,1392,80L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>') top center / 100% 200px no-repeat;
+    animation: wave-animation-reverse 18s ease-in-out infinite;
+  }
+  
+  @keyframes wave-animation {0%,100%{transform:translateX(0) translateY(0);}25%{transform:translateX(-2%) translateY(-3px);}50%{transform:translateX(0) translateY(-5px);}75%{transform:translateX(2%) translateY(-3px);}}
+  @keyframes wave-animation-reverse {0%,100%{transform:translateX(0) translateY(0);}25%{transform:translateX(2%) translateY(3px);}50%{transform:translateX(0) translateY(5px);}75%{transform:translateX(-2%) translateY(3px);}}
+  @keyframes fadeInUp {from {opacity:0;transform:translateY(30px);} to {opacity:1;transform:translateY(0);}}
+ 
+
+  .container {
+    position: relative;
+    width: 90%;
+    max-width: 480px;
+    background: #fff;
+    border-radius: 28px;
+    padding: 40px 36px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(25,118,210,0.15), 0 3px 12px rgba(0,0,0,0.08);
+    z-index: 5;
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  h2 {
+    color: #1976d2;
+    margin-bottom: 28px;
+    font-weight: 700;
+    font-size: 28px;
+    position: relative;
+    letter-spacing: -0.5px;
+  }
+  h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    margin: 8px auto 0 auto;
+    background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+    border-radius: 2px;
+  }
+
+  /* Table Styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(25,118,210,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  th, td {
+    padding: 12px 16px;
+    text-align: left;
+  }
+  th {
+    background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+    color: #fff;
+  }
+  tbody tr {
+    background: linear-gradient(90deg, #f0f7ff 0%, #e3f0ff 100%);
+    color: #1976d2;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  tbody tr:nth-child(even) {
+    background: linear-gradient(90deg, #e3f0ff 0%, #f0f7ff 100%);
+  }
+  tbody tr:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(25,118,210,0.15);
+  }
+
+  a.btn {
+    display: inline-block;
+    margin-top: 12px;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(135deg, #43a047 0%, #66bb6a 100%);
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(67,160,71,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  a.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+  
+  a.btn:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+  
+  a.btn:hover { 
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(67,160,71,0.4);
+  }
+
+  a.secondary-btn {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #1976d2;
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  a.secondary-btn:hover { text-decoration: underline; color: #125ea2; }
+
+  /* Keyboard Focus Styles */
+  a.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(67,160,71,0.4), 0 6px 20px rgba(67,160,71,0.4);
+    transform: translateY(-3px) scale(1.05);
+  }
+
+  a.btn.keyboard-focused {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(67,160,71,0.4), 0 6px 20px rgba(67,160,71,0.4);
+    transform: translateY(-3px) scale(1.05);
+  }
+
+  @media(max-width:500px){
+    .container{ padding:32px 24px; }
+    th, td{ padding:10px 12px; }
+    a.btn{ padding:10px 16px; }
+  }
+</style>
+</head>
+<body>
+<main class="container">
+  <h2>Stok Barang Semasa</h2>
+
+  <table id="teacherStockTable">
+    <thead>
+      <tr>
+        <th>Nama Barang</th>
+        <th>Kuantiti</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="2">Memuatkan stok...</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a href="order.html" class="btn">Kembali ke Borang Order</a>
+</main>
+
+<script src="config.js"></script>
+<script>
+// STOCK VIEW PAGE - Read-only inventory display for staff
+// Shows all available items and their current stock levels
+// Data syncs from Google Sheet or localStorage
+async function loadStockFromGoogleSheet() {
+  const tbody = document.querySelector("#teacherStockTable tbody");
+  tbody.innerHTML = "<tr><td colspan='2'>Memuatkan stok...</td></tr>";
+  
+  try {
+    let items = [];
+    
+    // Cuba ambil dari Google Sheet dulu
+    if (typeof isConfigured === 'function' && isConfigured()) {
+      items = await getItems();
+      console.log('Loaded from Google Sheet:', items.length, 'items');
+      
+      if (items && items.length > 0) {
+        localStorage.setItem('itemsStock', JSON.stringify(items));
+      } else {
+        localStorage.removeItem('itemsStock');
+      }
+    }
+    
+    // Fallback ke localStorage jika Google Sheet fail
+    if (!items || items.length === 0) {
+      items = JSON.parse(localStorage.getItem('itemsStock') || '[]');
+      console.log('Fallback to localStorage:', items.length, 'items');
+    }
+
+    tbody.innerHTML = "";
+
+    if (!items || items.length === 0) {
+      let tr = document.createElement("tr");
+      tr.innerHTML = "<td colspan='2'>Tiada stok tersedia.</td>";
+      tbody.appendChild(tr);
+      return;
+    }
+
+    items.forEach(item => {
+      let tr = document.createElement("tr");
+      tr.innerHTML = `<td>${item.name}</td><td>${item.stock}</td>`;
+      tbody.appendChild(tr);
+    });
+
+  } catch (error) {
+    console.error("ERROR loading stock:", error);
+    tbody.innerHTML = "<tr><td colspan='2'>Gagal memuatkan stok. Sila cuba lagi.</td></tr>";
+  }
+}
+
+loadStockFromGoogleSheet();
+
+// Keyboard Navigation for Buttons
+document.addEventListener('DOMContentLoaded', function() {
+  let currentFocusIndex = 0;
+  const buttons = Array.from(document.querySelectorAll('a.btn'));
+
+  function focusButton(index) {
+    if (buttons.length === 0) return;
+    
+    // Ensure index is within bounds
+    index = (index + buttons.length) % buttons.length;
+    
+    // Remove focus from all buttons
+    buttons.forEach(btn => btn.classList.remove('keyboard-focused'));
+    
+    // Add focus to current button
+    buttons[index].classList.add('keyboard-focused');
+    buttons[index].focus();
+    currentFocusIndex = index;
+  }
+
+  // Handle keyboard events
+  document.addEventListener('keydown', function(e) {
+    // Arrow keys for navigation (Left/Right or Up/Down)
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      focusButton(currentFocusIndex - 1);
+    } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      focusButton(currentFocusIndex + 1);
+    }
+    // Enter key to activate button
+    else if (e.key === 'Enter') {
+      const focused = document.querySelector('a.btn.keyboard-focused');
+      if (focused) {
+        e.preventDefault();
+        focused.click();
+      }
+    }
+  });
+
+  // Initialize first button as focused
+  if (buttons.length > 0) {
+    focusButton(0);
+  }
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,716 @@
+
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Stock (Admin)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+  font-family: 'Poppins','Segoe UI',Arial,sans-serif;
+  margin:0;
+  padding:50px 0 0 0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+  overflow-x:hidden;
+  position:relative;
+}
+
+body::before {
+  content:'';
+  position:fixed;
+  bottom:0; left:0;
+  width:200%; height:300px;
+  background: linear-gradient(135deg,#42a5f5,#90caf9);
+  border-radius: 45% 55% 0 0 / 20% 30% 0 0;
+  transform: rotate(0deg);
+  animation: waveMove 15s linear infinite;
+  opacity:0.25;
+  z-index:0;
+}
+
+body::after {
+  content:'';
+  position:fixed;
+  bottom:0; left:0;
+  width:200%; height:200px;
+  background: linear-gradient(135deg,#ffcc80,#ffe082);
+  border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+  animation: waveMoveReverse 10s linear infinite;
+  opacity:0.18;
+  z-index:0;
+}
+
+@keyframes waveMove {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-25%) translateY(-10px); }
+  100% { transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes waveMoveReverse {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-25%) translateY(5px); }
+  100% { transform: translateX(-50%) translateY(0); }
+}
+body::before, body::after { content: ''; position: fixed; width:100%; height:100%; z-index:0; pointer-events:none; }
+  body::before {
+    bottom:0; left:0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%231976d2" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,112C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') bottom center / 100% 250px no-repeat;
+    animation: wave-animation 15s ease-in-out infinite;
+  }
+  body::after {
+    top:0; left:0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2342a5f5" fill-opacity="0.06" d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,90.7C672,85,768,107,864,122.7C960,139,1056,149,1152,138.7C1248,128,1344,96,1392,80L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>') top center / 100% 200px no-repeat;
+    animation: wave-animation-reverse 18s ease-in-out infinite;
+  }
+  
+  @keyframes wave-animation {0%,100%{transform:translateX(0) translateY(0);}25%{transform:translateX(-2%) translateY(-3px);}50%{transform:translateX(0) translateY(-5px);}75%{transform:translateX(2%) translateY(-3px);}}
+  @keyframes wave-animation-reverse {0%,100%{transform:translateX(0) translateY(0);}25%{transform:translateX(2%) translateY(3px);}50%{transform:translateX(0) translateY(5px);}75%{transform:translateX(-2%) translateY(3px);}}
+  @keyframes fadeInUp {from {opacity:0;transform:translateY(30px);} to {opacity:1;transform:translateY(0);}}
+    .container {
+      max-width: 500px;
+      width: 100%;
+      background: #fff;
+      border-radius: 22px;
+      padding: 36px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(25,118,210,0.15), 0 3px 12px rgba(0,0,0,0.08);
+      position: relative;
+      z-index: 5;
+      animation: fadeInUp 0.6s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    h2 {
+      color: #1976d2;
+      margin-bottom: 24px;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .add-item-container {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .add-item-container input {
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 2px solid #e3f0ff;
+      font-size: 1em;
+      outline: none;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+    .add-item-container input:focus {
+      border-color: #1976d2;
+      background: #f0f7ff;
+      box-shadow: 0 0 0 3px rgba(25,118,210,0.1);
+    }
+    .add-item-container button {
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: none;
+      background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+      color: #fff;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(25,118,210,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .add-item-container button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    
+    .add-item-container button:hover::before {
+      width: 200px;
+      height: 200px;
+    }
+    
+    .add-item-container button:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 6px 20px rgba(25,118,210,0.4);
+    }
+    ul { list-style:none; padding:0; margin:0 0 20px 0; text-align:left; }
+    ul li { background:#f0f7ff; margin-bottom:8px; padding:10px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; gap:10px; }
+    ul li input { width:70px; padding:6px; text-align:right; border-radius:4px; border:1px solid #b6d0f7; }
+    ul li span { flex: 1; cursor: pointer; padding: 8px 12px; border-radius: 4px; transition: all 0.2s ease; }
+    ul li span:hover { background: rgba(25, 118, 210, 0.1); color: #1976d2; font-weight: 500; }
+    ul li .item-name-input { flex: 1; padding: 8px 12px; border: 2px solid #1976d2; border-radius: 4px; font-family: Poppins; font-size: 1em; outline: none; }
+    .edit-actions { display: flex; gap: 6px; }
+    .edit-actions button { padding: 6px 10px; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 12px; transition: all 0.2s ease; }
+    .edit-actions .save-btn { background: #43a047; color: white; }
+    .edit-actions .save-btn:hover { background: #2e7d32; }
+    .edit-actions .cancel-btn { background: #e0e0e0; color: #333; }
+    .edit-actions .cancel-btn:hover { background: #bdbdbd; }
+
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top:12px;
+    }
+    .action-buttons a {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
+      transition: all 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      background: linear-gradient(90deg,#1976d2 60%,#42a5f5 100%);
+    }
+    .action-buttons a:hover {
+      background: linear-gradient(90deg,#125ea2 60%,#1976d2 100%);
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    }
+    
+    /* Loading animation */
+    .loading {
+      display: inline-block;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h2>Stok Barang Semasa</h2>
+
+    <!-- Toggle Mode -->
+    <div style="margin-bottom: 20px; text-align: center;">
+      <button id="toggleModeBtn" style="background: linear-gradient(90deg,#43a047 60%,#66bb6a 100%); color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+      Tukar kepada Mod Berbilang
+      </button>
+    </div>
+
+    <!-- Single Item Mode -->
+    <div id="singleMode" class="add-item-container">
+      <input type="text" id="newItemName" placeholder="Nama Barang Baru">
+      <input type="number" id="newItemStock" placeholder="Stok" min="0">
+      <button id="addItemBtn">Tambah</button>
+    </div>
+
+    <!-- Bulk Mode (Hidden by default) -->
+    <div id="bulkMode" style="display: none; margin-bottom: 20px;">
+      <p style="color: #666; font-size: 14px; margin-bottom: 10px;">
+        Format: Setiap baris = Nama Barang, Stok (contoh: "Pen, 100")
+      </p>
+      <textarea id="bulkInput" rows="10" placeholder="Pen, 100&#10;Buku, 50&#10;Pensel, 75" style="width: 100%; padding: 12px; border: 2px solid #b6d0f7; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 14px;"></textarea>
+      <button id="addBulkBtn" style="width: 100%; margin-top: 10px; background: linear-gradient(90deg,#1976d2 60%,#42a5f5 100%); color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px;">
+        Tambah Semua
+      </button>
+    </div>
+
+    <ul id="teacherStockList"></ul>
+
+    <div class="action-buttons">
+      <a href="admin_dashboard.html">Kembali ke Dashboard</a>
+    </div>
+  </main>
+
+  <script src="config.js"></script>
+  <script>
+    
+    // Get items dari localStorage or Google Sheet
+    async function getStock() {
+      if (typeof isConfigured === 'function' && isConfigured()) {
+        try {
+          const items = await getItems();
+          if (items) {
+            return items;
+          }
+        } catch (error) {
+          console.error('Error loading from Google Sheet:', error);
+        }
+      }
+      
+      // Fallback ke localStorage
+      return JSON.parse(localStorage.getItem('itemsStock') || '[]');
+    }
+
+ // Save items to Google Sheet or localStorage
+    async function saveStock(items) {
+      // Save to localStorage as backup
+      localStorage.setItem('itemsStock', JSON.stringify(items));
+      
+      // if Google Sheet configured, save there also
+      if (typeof isConfigured === 'function' && isConfigured()) {
+        // Items in Google Sheet are auto-updated via updateItem function
+        // if we don't need save here, but we make placeholder for future enhancement
+      }
+    }
+
+    async function renderStock() {
+      const items = await getStock();
+      const ul = document.getElementById('teacherStockList');
+      ul.innerHTML = '';
+      items.forEach((item, idx) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span class="item-name-span" data-idx="${idx}" data-original-name="${item.name}">${item.name}</span>
+          <input type="number" min="0" value="${item.stock}" data-idx="${idx}" data-name="${item.name}" class="stock-input" />
+        `;
+        ul.appendChild(li);
+      });
+
+      // Attach event listeners for item name editing
+      document.querySelectorAll('.item-name-span').forEach(span => {
+        span.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          
+          const idx = span.getAttribute('data-idx');
+          const items = await getStock();
+          const currentName = items[idx].name;
+          const currentStock = items[idx].stock;
+          
+          // Get the parent li element
+          const li = span.parentElement;
+          
+          // Save original HTML in case we need to revert
+          const originalHTML = li.innerHTML;
+          
+          // Create the edit HTML structure
+          const editHTML = `
+            <input type="text" class="item-name-input-edit" value="${currentName}" style="flex: 1; padding: 8px 12px; border: 2px solid #1976d2; border-radius: 4px; font-family: Poppins; font-size: 1em; outline: none;">
+            <div class="edit-actions" style="display: flex; gap: 6px;">
+              <button type="button" class="save-btn-edit" style="padding: 6px 10px; border: none; border-radius: 4px; background: #43a047; color: white; cursor: pointer; font-weight: 600; font-size: 12px;">Simpan</button>
+              <button type="button" class="cancel-btn-edit" style="padding: 6px 10px; border: none; border-radius: 4px; background: #e0e0e0; color: #333; cursor: pointer; font-weight: 600; font-size: 12px;">Batal</button>
+            </div>
+            <input type="number" min="0" value="${currentStock}" data-idx="${idx}" data-name="${currentName}" class="stock-input" style="width:70px; padding:6px; text-align:right; border-radius:4px; border:1px solid #b6d0f7;">
+          `;
+          
+          li.innerHTML = editHTML;
+          
+          // Get the new input field and focus it
+          const editInput = li.querySelector('.item-name-input-edit');
+          const saveBtnEdit = li.querySelector('.save-btn-edit');
+          const cancelBtnEdit = li.querySelector('.cancel-btn-edit');
+          
+          editInput.focus();
+          editInput.select();
+          
+          // Define cancel function
+          const cancelEdit = () => {
+            li.innerHTML = originalHTML;
+            renderStock();
+          };
+          
+          // Define save function
+          const saveEdit = async () => {
+            const newName = editInput.value.trim();
+            
+            if (!newName) {
+              alert('Nama barang tidak boleh kosong!');
+              editInput.focus();
+              return;
+            }
+            
+            if (newName.toLowerCase() === currentName.toLowerCase()) {
+              cancelEdit();
+              return;
+            }
+            
+            // Check if name already exists
+            const allItems = await getStock();
+            if (allItems.some(i => i.name.toLowerCase() === newName.toLowerCase() && i.name !== currentName)) {
+              alert('Nama barang ini sudah ada!');
+              editInput.focus();
+              return;
+            }
+            
+            // Disable buttons temporarily
+            saveBtnEdit.disabled = true;
+            saveBtnEdit.textContent = 'Menyimpan...';
+            cancelBtnEdit.disabled = true;
+            editInput.disabled = true;
+            
+            console.log('Updating item name from "' + currentName + '" to "' + newName + '"');
+            
+            try {
+              // Update localStorage immediately
+              let items = await getStock();
+              const itemIndex = items.findIndex(i => i.name.toLowerCase() === currentName.toLowerCase());
+              if (itemIndex !== -1) {
+                items[itemIndex].name = newName;
+                await saveStock(items);
+              }
+              
+              // Sync to Google Sheet in background
+              if (typeof isConfigured === 'function' && isConfigured()) {
+                try {
+                  const stock = currentStock;
+                  // Delete old item and add new one
+                  await deleteItem(currentName);
+                  await new Promise(resolve => setTimeout(resolve, 300));
+                  await addItem(newName, stock);
+                  console.log('Item name updated in Google Sheet');
+                  
+                  // Verify by re-fetching
+                  setTimeout(async () => {
+                    const freshItems = await getItems();
+                    if (freshItems && freshItems.length > 0) {
+                      await saveStock(freshItems);
+                      await renderStock();
+                    }
+                  }, 500);
+                } catch (error) {
+                  console.error('Error syncing to Google Sheet:', error);
+                  alert('Amaran: Nama disimpan secara tempatan tetapi sinkronisasi gagal: ' + error.message);
+                  await renderStock();
+                }
+              } else {
+                await renderStock();
+              }
+            } catch (error) {
+              console.error('Error saving item name:', error);
+              alert('Ralat: ' + error.message);
+              saveBtnEdit.disabled = false;
+              cancelBtnEdit.disabled = false;
+              saveBtnEdit.textContent = 'Simpan';
+              editInput.disabled = false;
+            }
+          };
+          
+          // Save button click handler
+          saveBtnEdit.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            saveEdit();
+          });
+          
+          // Cancel button click handler
+          cancelBtnEdit.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            cancelEdit();
+          });
+          
+          // Allow Enter key to save, Escape to cancel
+          editInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              saveEdit();
+            }
+            if (e.key === 'Escape') {
+              e.preventDefault();
+              cancelEdit();
+            }
+          });
+        });
+      });
+
+      // Attach event listeners for stock input
+      document.querySelectorAll('.stock-input').forEach(input => {
+        input.addEventListener('change', async (e) => {
+          const newStock = parseInt(e.target.value, 10) || 0;
+          const itemName = e.target.getAttribute('data-name');
+          const inputField = e.target;
+          
+          // Disable input temporarily
+          inputField.disabled = true;
+          inputField.style.opacity = '0.5';
+          
+          console.log('Updating stock:', itemName, 'to', newStock);
+          
+          // Update localStorage immediately for instant feedback
+          let items = await getStock();
+          const itemIndex = items.findIndex(i => i.name.toLowerCase() === itemName.toLowerCase());
+          if (itemIndex !== -1) {
+            items[itemIndex].stock = newStock;
+            await saveStock(items);
+          }
+          
+          // Sync to Google Sheet in background
+          if (typeof isConfigured === 'function' && isConfigured()) {
+            try {
+              await updateItem(itemName, newStock);
+              console.log('Stock updated in Google Sheet');
+              
+              // Verify by re-fetching after 1 second
+              setTimeout(async () => {
+                const freshItems = await getItems();
+                if (freshItems && freshItems.length > 0) {
+                  await saveStock(freshItems);
+                }
+              }, 1000);
+            } catch (error) {
+              console.error('Error syncing to Google Sheet:', error);
+            }
+          }
+          
+          // Re-enable input
+          inputField.disabled = false;
+          inputField.style.opacity = '1';
+        });
+      });
+    }
+
+    document.getElementById('addItemBtn').addEventListener('click', async () => {
+      // ADD NEW ITEM
+      // Prevents duplicates, syncs to Google Sheet, shows loading indicator
+      const name = document.getElementById('newItemName').value.trim();
+      const stock = parseInt(document.getElementById('newItemStock').value, 10);
+      const btn = document.getElementById('addItemBtn');
+      
+      if (!name || isNaN(stock)) { 
+        alert('Sila masukkan nama dan stok!'); 
+        return; 
+      }
+      
+      console.log('=== ADD ITEM START ===');
+      console.log('Name:', name, 'Stock:', stock);
+      console.log('Config URL:', GOOGLE_APPS_SCRIPT_CONFIG.webAppUrl);
+      console.log('Is Configured:', isConfigured());
+      
+      // Show loading
+      btn.disabled = true;
+      btn.innerHTML = 'Memproses... <span class="loading">●</span>';
+      
+      let items = await getStock();
+      console.log('Current items count:', items.length);
+      
+      if (items.some(i => i.name.toLowerCase() === name.toLowerCase())) { 
+        alert('❌ Barang sudah wujud!');
+        btn.disabled = false;
+        btn.innerHTML = 'Tambah'; 
+        return; 
+      }
+
+      // Add to localStorage immediately for instant feedback
+      items.push({ name, stock });
+      await saveStock(items);
+      console.log('✓ Saved to localStorage');
+      alert('✅ Barang berjaya ditambah!');
+      
+      // Then sync ke Google Sheet in background
+      if (typeof isConfigured === 'function' && isConfigured()) {
+        console.log('Syncing to Google Sheet...');
+        try {
+          const result = await addItem(name, stock);
+          console.log('Google Sheet result:', result);
+          
+          if (result && result.success) {
+            console.log('✓ Item added to Google Sheet successfully!');
+            // Already alerted success above
+          } else if (result) {
+            console.error('✗ Google Sheet returned error:', result.message);
+            alert('⚠️ Amaran (tempatan OK): ' + result.message);
+          }
+          
+          // Verify by re-fetching after 800ms
+          setTimeout(async () => {
+            console.log('Verifying by re-fetching from Google Sheet...');
+            const freshItems = await getItems();
+            console.log('Fresh items count:', freshItems ? freshItems.length : 0);
+            if (freshItems && freshItems.length > 0) {
+              await saveStock(freshItems);
+              await renderStock();
+              console.log('✓ Stock list refreshed');
+            }
+          }, 800);
+        } catch (error) {
+          console.error('Error syncing to server:', error);
+          alert('⚠️ Item disimpan tempatan, tapi sinkronisasi gagal: ' + (error.message || ''));
+        }
+      } else {
+        console.warn('Perkhidmatan tidak dikonfigurasi, menggunakan localStorage sahaja');
+      }
+      
+      document.getElementById('newItemName').value = '';
+      document.getElementById('newItemStock').value = '';
+      btn.disabled = false;
+      btn.innerHTML = 'Tambah';
+      
+      await renderStock();
+      console.log('=== ADD ITEM END ===');
+    });
+
+    // Toggle between Single and Bulk mode
+    document.getElementById('toggleModeBtn').addEventListener('click', () => {
+      const singleMode = document.getElementById('singleMode');
+      const bulkMode = document.getElementById('bulkMode');
+      const toggleBtn = document.getElementById('toggleModeBtn');
+      
+      if (singleMode.style.display === 'none') {
+        singleMode.style.display = 'block';
+        bulkMode.style.display = 'none';
+        toggleBtn.textContent = 'Tukar kepada Mod Berbilang';
+      } else {
+        singleMode.style.display = 'none';
+        bulkMode.style.display = 'block';
+        toggleBtn.textContent = 'Tukar kepada Mod Satu';
+      }
+    });
+
+    // Bulk Add Items
+    document.getElementById('addBulkBtn').addEventListener('click', async () => {
+      const bulkInput = document.getElementById('bulkInput').value.trim();
+      const btn = document.getElementById('addBulkBtn');
+      
+      if (!bulkInput) {
+        alert('Sila masukkan data!');
+        return;
+      }
+      
+      // Parse input
+      const lines = bulkInput.split('\n').filter(line => line.trim());
+      const itemsToAdd = [];
+      
+      for (const line of lines) {
+        const parts = line.split(',').map(p => p.trim());
+        if (parts.length >= 2) {
+          const name = parts[0];
+          const stock = parseInt(parts[1], 10);
+          if (name && !isNaN(stock)) {
+            itemsToAdd.push({ name, stock });
+          }
+        }
+      }
+      
+      if (itemsToAdd.length === 0) {
+        alert('Tiada data yang sah. Format: Nama Barang, Stok');
+        return;
+      }
+      
+      // Show loading
+      btn.disabled = true;
+      btn.innerHTML = 'Memproses ' + itemsToAdd.length + ' items... <span class="loading">●</span>';
+      
+      // Get current items
+      let items = await getStock();
+      let addedCount = 0;
+      let skippedCount = 0;
+      
+      // Add to localStorage immediately
+      for (const item of itemsToAdd) {
+        if (!items.some(i => i.name.toLowerCase() === item.name.toLowerCase())) {
+          items.push(item);
+          addedCount++;
+        } else {
+          skippedCount++;
+        }
+      }
+      
+      await saveStock(items);
+      await renderStock();
+      
+      // Sync to Google Sheet in background
+      if (typeof isConfigured === 'function' && isConfigured()) {
+        for (const item of itemsToAdd) {
+          try {
+            await addItem(item.name, item.stock);
+            // Small delay to avoid overwhelming the server
+            await new Promise(resolve => setTimeout(resolve, 200));
+          } catch (error) {
+            console.error('Error adding item:', item.name, error);
+          }
+        }
+        
+        // Verify by re-fetching
+        setTimeout(async () => {
+          const freshItems = await getItems();
+          if (freshItems && freshItems.length > 0) {
+            await saveStock(freshItems);
+            await renderStock();
+          }
+        }, 1500);
+      }
+      
+      document.getElementById('bulkInput').value = '';
+      btn.disabled = false;
+      btn.innerHTML = 'Tambah Semua';
+      
+      alert(`Berjaya tambah ${addedCount} barang baru!${skippedCount > 0 ? ` (${skippedCount} sudah wujud)` : ''}`);
+    });
+
+    // Load stock on page load
+    window.addEventListener('load', async () => {
+      await renderStock();
+    });
+  </script>
+<script>
+// Keyboard Navigation for Buttons and Links
+document.addEventListener("DOMContentLoaded", function() {
+  let currentFocusIndex = 0;
+  let buttons = Array.from(document.querySelectorAll("button, .action-buttons a"));
+
+  function focusButton(index) {
+    buttons = Array.from(document.querySelectorAll("button, .action-buttons a"));
+    if (buttons.length === 0) return;
+    
+    index = (index + buttons.length) % buttons.length;
+    buttons.forEach(btn => btn.classList.remove("keyboard-focused"));
+    buttons[index].classList.add("keyboard-focused");
+    buttons[index].focus();
+    currentFocusIndex = index;
+  }
+
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      focusButton(currentFocusIndex - 1);
+    } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      focusButton(currentFocusIndex + 1);
+    }
+    else if (e.key === "Enter") {
+      const focused = document.querySelector("button.keyboard-focused, .action-buttons a.keyboard-focused");
+      if (focused) {
+        e.preventDefault();
+        focused.click();
+      }
+    }
+  });
+
+  if (buttons.length > 0) {
+    focusButton(0);
+  }
+});
+</script>
+
+</body>
+
+</html>
+
+
+

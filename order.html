@@ -1,0 +1,595 @@
+
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Submit Application</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body {
+      background: linear-gradient(to bottom, #e3f0ff 0%, #f0f7ff 100%);
+      font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+      margin: 0; padding: 0; min-height: 100vh; position: relative; overflow-x: hidden;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      background: 
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="%231976d2" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,112C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') bottom center / 100% 250px no-repeat,
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="%2343a047" fill-opacity="0.04" d="M0,160L48,170.7C96,181,192,203,288,197.3C384,192,480,160,576,149.3C672,139,768,149,864,165.3C960,181,1056,203,1152,197.3C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') bottom center / 100% 200px no-repeat;
+      animation: wave-animation 15s ease-in-out infinite;
+    }
+    
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      background: 
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="%2342a5f5" fill-opacity="0.06" d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,90.7C672,85,768,107,864,122.7C960,139,1056,149,1152,138.7C1248,128,1344,96,1392,80L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>') top center / 100% 200px no-repeat,
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="%2366bb6a" fill-opacity="0.04" d="M0,96L48,106.7C96,117,192,139,288,138.7C384,139,480,117,576,101.3C672,85,768,75,864,90.7C960,107,1056,149,1152,154.7C1248,160,1344,128,1392,112L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>') top center / 100% 180px no-repeat;
+      animation: wave-animation-reverse 18s ease-in-out infinite;
+    }
+    
+    @keyframes wave-animation {
+      0%, 100% { transform: translateX(0) translateY(0); }
+      25% { transform: translateX(-2%) translateY(-3px); }
+      50% { transform: translateX(0) translateY(-5px); }
+      75% { transform: translateX(2%) translateY(-3px); }
+    }
+    
+    @keyframes wave-animation-reverse {
+      0%, 100% { transform: translateX(0) translateY(0); }
+      25% { transform: translateX(2%) translateY(3px); }
+      50% { transform: translateX(0) translateY(5px); }
+      75% { transform: translateX(-2%) translateY(3px); }
+    }
+  
+
+ .container { max-width: 600px; margin: 50px auto; background: #fff; border-radius: 24px; box-shadow: 0 10px 40px rgba(25,118,210,0.15), 0 3px 12px rgba(0,0,0,0.08); padding: 36px; position: relative; overflow: hidden; z-index: 5; animation: fadeInUp 0.6s ease-out; }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  h2 { color:#1976d2; margin-bottom:24px; font-size:28px; font-weight:700; letter-spacing:-0.5px; }
+  label { display:block; margin-top:12px; text-align:left; font-weight:500; font-size:15px; }
+  input, select { width:100%; padding:10px 12px; margin-top:6px; border-radius:8px; border:2px solid #e3f0ff; font-size:15px; box-sizing:border-box; transition: all 0.3s ease; }
+  input:focus, select:focus { outline:none; border-color:#1976d2; box-shadow:0 0 0 3px rgba(25,118,210,0.1); }
+  button, a { display:block; width:100%; margin-top:12px; text-align:center; padding:12px 0; border-radius:12px; font-weight:600; font-size:15px; cursor:pointer; transition: transform 0.2s, box-shadow 0.2s, background 0.2s; border:none; }
+  button#submitBtn { background: linear-gradient(135deg,#43a047 0%,#66bb6a 100%); color:#fff; box-shadow:0 4px 15px rgba(67,160,71,0.3); position:relative; overflow:hidden; }
+  button#submitBtn::before { content:''; position:absolute; top:50%; left:50%; width:0;height:0;border-radius:50%; background:rgba(255,255,255,0.2); transform:translate(-50%,-50%); transition: width 0.6s,height 0.6s; }
+  button#submitBtn:hover:enabled::before { width:300px; height:300px; }
+  button#submitBtn:disabled { background:#a5d6a7; cursor:not-allowed; box-shadow:none; }
+  button#submitBtn:hover:enabled { transform:translateY(-3px) scale(1.02); box-shadow:0 6px 20px rgba(67,160,71,0.4); }
+  button.secondary-btn { background:#1976d2; color:#fff; }
+  button.secondary-btn:hover { background:#125ea2; }
+  a { background:#43a047; color:#fff; text-decoration:none; }
+  a:hover { background:#338a3e; }
+
+  /* Keyboard Focus Styles */
+  button:focus, a:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(67,160,71,0.4), 0 6px 20px rgba(67,160,71,0.4);
+    transform: translateY(-3px) scale(1.05);
+  }
+
+  button.keyboard-focused, a.keyboard-focused {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(67,160,71,0.4), 0 6px 20px rgba(67,160,71,0.4);
+    transform: translateY(-3px) scale(1.05);
+  }
+
+  /* Cart Styles */
+  #cartContainer { margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 12px; border: 2px solid #e3f0ff; display: none; }
+  #cartContainer.show { display: block; }
+  #cartContainer h3 { color: #1976d2; margin-top: 0; }
+  #cartList { list-style: none; padding: 0; margin: 0; }
+  #cartList li { background: #fff; padding: 12px; margin-bottom: 8px; border-radius: 8px; border-left: 4px solid #1976d2; display: flex; justify-content: space-between; align-items: center; }
+  #cartList .item-info { flex: 1; }
+  #cartList .item-name { font-weight: 600; color: #333; }
+  #cartList .item-qty { color: #666; font-size: 14px; }
+  #cartList .remove-btn { background: #e53935; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+  #cartList .remove-btn:hover { background: #c62828; }
+  #cartSummary { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding-top: 15px; border-top: 2px solid #ddd; }
+  #cartSummary .summary-text { font-weight: 600; color: #333; }
+  #cartActions { display: flex; gap: 10px; }
+  #cartActions button { padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+  #submitCartBtn { background: linear-gradient(135deg, #43a047 0%, #66bb6a 100%); color: white; flex: 1; }
+  #submitCartBtn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(67,160,71,0.3); }
+  #clearCartBtn { background: #e0e0e0; color: #333; min-width: 100px; }
+  #clearCartBtn:hover { background: #bdbdbd; }
+
+  table { width:100%; border-collapse: collapse; margin-top:20px; font-size:14px;}
+  table, th, td { border:1px solid #b6d0f7; }
+  th, td { padding:10px; text-align:center; }
+  #myOrdersDiv { display:none; margin-top:12px; }
+
+  .delete-btn { background:#e53935; padding:6px 12px; border-radius:8px; cursor:pointer; border:none; color:#fff; font-weight:500; transition:background 0.2s; }
+  .delete-btn:hover { background:#c62828; }
+
+  #orderNotice { background:#52ff3b;color:#333;padding:12px 16px;border-radius:8px;margin-bottom:16px;font-weight:500; display:none; }
+
+  .loading { display:inline-block; margin-left:8px; color:#1976d2; font-size:14px; animation:pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse {0%,100%{opacity:1;}50%{opacity:0.5;}}
+
+  .submit-like {
+  position: relative;
+  overflow: hidden;
+}
+.submit-like.loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+.submit-like .loading {
+  display: inline-block;
+  margin-left: 8px;
+  color: #fff;
+  font-size: 14px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+.submit-like:active::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  transform: translate(-50%,-50%);
+  animation: btnwave 0.6s forwards;
+}
+@keyframes btnwave {
+  to { width: 300px; height: 300px; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <h2>Daftar Permohonan</h2>
+
+  <!-- CART INTERFACE
+  <!-- Single Order Mode -->
+  <form id="orderForm" onsubmit="return false;">
+    <div id="singleMode">
+      <label for="teacherEmail">Email Staff</label>
+      <input id="teacherEmail" type="email" required readonly />
+
+      <label for="teacherName">Nama Staff</label>
+      <input id="teacherName" required readonly />
+
+      <label for="itemSelect">Pilih Barang</label>
+      <select id="itemSelect"></select>
+
+      <label for="qty">Kuantiti</label>
+      <input id="qty" type="number" min="1" value="1" required />
+
+      <button type="button" id="addToCartBtn" style="background: linear-gradient(135deg,#42a5f5 0%,#64b5f6 100%); color:#fff; box-shadow:0 4px 15px rgba(66,165,245,0.3);">
+        Tambah ke Senarai Pesanan
+      </button>
+    </div>
+  </form>
+
+  <!-- CART DISPLAY - Holds items before final submission -->
+  <div id="cartContainer">
+    <h3>🛒 Senarai Pesanan</h3>
+    <ul id="cartList"></ul>
+    <div id="cartSummary">
+      <div class="summary-text">Total: <span id="cartTotal">0</span> item</div>
+      <div id="cartActions">
+        <button type="button" id="clearCartBtn">Kosongkan</button>
+        <button type="button" id="submitCartBtn">Hantar Pesanan</button>
+      </div>
+    </div>
+  </div>
+
+  <!--  FIX: type="button" add -->
+  <button type="button" id="checkOrdersBtn" class="secondary-btn submit-like">Semak Pesanan Saya</button>
+  <div id="myOrdersDiv">
+    <h3>Pesanan Saya</h3>
+    <table>
+      <thead>
+        <tr><th>Barang</th><th>Kuantiti</th><th>Status</th><th>Tarikh</th><th>Tindakan</th></tr>
+      </thead>
+      <tbody id="ordersTbody"></tbody>
+    </table>
+    <button id="deleteAllBtn" class="delete-btn" style="width:100%; margin-top:12px; display:none;">Padam Semua Pesanan</button>
+  </div>
+
+  <button type="button" id="lihatStokBtn" class="secondary-btn submit-like">Paparan Stok</button>
+  <button type="button" id="logoutBtn" class="secondary-btn submit-like">Log Keluar</button>
+</div>
+
+<script src="config.js"></script>
+<script>
+// ORDER PAGE - Staff ordering system
+// Users add items to cart, then submit all at once
+// Stock deducts immediately, orders tracked in "Pesanan Saya" section
+const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+if(!currentUser){ alert('Sila login dahulu'); window.location.href='index.html'; }
+document.getElementById('teacherEmail').value = currentUser.email;
+document.getElementById('teacherName').value = currentUser.name;
+
+const qtyInput = document.getElementById('qty');
+const itemSelect = document.getElementById('itemSelect');
+const addToCartBtn = document.getElementById('addToCartBtn');
+const clearCartBtn = document.getElementById('clearCartBtn');
+const submitCartBtn = document.getElementById('submitCartBtn');
+
+// Cart management
+let cart = [];
+
+function renderCart(){
+  const cartList = document.getElementById('cartList');
+  const cartContainer = document.getElementById('cartContainer');
+  const cartTotal = document.getElementById('cartTotal');
+  
+  cartList.innerHTML = '';
+  
+  if(cart.length === 0){
+    cartContainer.classList.remove('show');
+    return;
+  }
+  
+  cartContainer.classList.add('show');
+  cartTotal.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+  
+  cart.forEach((item, idx) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span>${item.name} - Qty: ${item.qty}</span><button type="button" class="remove-btn">Buang</button>`;
+    
+    li.querySelector('.remove-btn').addEventListener('click', () => {
+      cart.splice(idx, 1);
+      renderCart();
+    });
+    
+    cartList.appendChild(li);
+  });
+}
+
+function addToCart(){
+  const item = itemSelect.value;
+  const qty = parseInt(qtyInput.value, 10);
+  
+  if(!item){
+    alert('Sila pilih barang');
+    return;
+  }
+  
+  if(qty <= 0){
+    alert('Kuantiti mesti lebih dari 0');
+    return;
+  }
+  
+  // Check if item already in cart
+  const existingItem = cart.find(c => c.name === item);
+  if(existingItem){
+    existingItem.qty += qty;
+  } else {
+    cart.push({ name: item, qty });
+  }
+  
+  renderCart();
+  qtyInput.value = 1;
+  alert('✅ Ditambah ke keranjang!');
+}
+
+async function populateItemSelect(){
+  let items = [];
+  if(typeof isConfigured==='function' && isConfigured()){ items = await getItems(); localStorage.setItem('itemsStock',JSON.stringify(items)); }
+  if(!items || items.length===0){ items = JSON.parse(localStorage.getItem('itemsStock')||'[]'); }
+  itemSelect.innerHTML = '';
+  const availableItems = items.filter(i=>i.stock>0);
+  if(availableItems.length===0){ const opt=document.createElement('option'); opt.textContent='Tiada stok barang'; opt.value=''; itemSelect.appendChild(opt); addToCartBtn.disabled=true; }
+  else{ availableItems.forEach(item=>{ const opt=document.createElement('option'); opt.value=item.name; opt.textContent=`${item.name} (Stok: ${item.stock})`; itemSelect.appendChild(opt); }); addToCartBtn.disabled=false; }
+}
+populateItemSelect();
+
+// Function to get rejection reason from Google Sheets
+async function getRejectionReason(email, item) {
+  if (!isConfigured()) {
+    return null;
+  }
+  
+  try {
+    const url = GOOGLE_APPS_SCRIPT_CONFIG.webAppUrl + 
+                '?action=getRejectionReason' +
+                '&email=' + encodeURIComponent(email) +
+                '&item=' + encodeURIComponent(item);
+    
+    const response = await fetch(url, {
+      method: 'GET',
+      redirect: 'follow',
+      cache: 'no-cache'
+    });
+    
+    const text = await response.text();
+    try {
+      const result = JSON.parse(text);
+      return result.reason || null;
+    } catch (e) {
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching rejection reason:', error);
+    return null;
+  }
+}
+
+// Add to Cart button
+addToCartBtn.addEventListener('click', addToCart);
+
+// Clear cart button
+clearCartBtn.addEventListener('click', () => {
+  if(confirm('Yakin mahu kosongkan keranjang?')){
+    cart = [];
+    renderCart();
+  }
+});
+
+// Submit cart button
+submitCartBtn.addEventListener('click', async () => {
+  if(cart.length === 0){
+    alert('Keranjang kosong!');
+    return;
+  }
+  
+  if(!confirm(`Hantar ${cart.length} item?`)){
+    return;
+  }
+  
+  const btn = submitCartBtn;
+  const originalText = btn.innerHTML;
+  
+  try{
+    btn.disabled = true;
+    btn.innerHTML = 'Menghantar... <span class="loading">●</span>';
+    
+    let items = JSON.parse(localStorage.getItem('itemsStock') || '[]');
+    let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    let successCount = 0;
+    let failureReasons = [];
+    
+    // Process each item in cart
+    for(const cartItem of cart){
+      try{
+        const itemIdx = items.findIndex(i => i.name === cartItem.name);
+        
+        if(itemIdx === -1){
+          failureReasons.push(`"${cartItem.name}" - Barang tidak dijumpai`);
+          continue;
+        }
+        
+        if(cartItem.qty > items[itemIdx].stock){
+          failureReasons.push(`"${cartItem.name}" - Stok tidak mencukupi (Stok: ${items[itemIdx].stock})`);
+          continue;
+        }
+        
+        // Deduct from stock
+        items[itemIdx].stock -= cartItem.qty;
+        localStorage.setItem('itemsStock', JSON.stringify(items));
+        
+        // Update Google Sheet
+        if(typeof isConfigured === 'function' && isConfigured()){
+          await updateItem(cartItem.name, items[itemIdx].stock);
+        }
+        
+        // Add to orders
+        orders.unshift({
+          name: currentUser.name,
+          email: currentUser.email,
+          item: cartItem.name,
+          qty: cartItem.qty,
+          status: 'pending',
+          date: new Date().toLocaleString()
+        });
+        
+        // Submit to Google Sheet
+        if(typeof isConfigured === 'function' && isConfigured()){
+          await requestStock(currentUser.email, currentUser.name, cartItem.name, cartItem.qty);
+        }
+        
+        successCount++;
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+      } catch(error){
+        console.error('Error processing item:', cartItem, error);
+        failureReasons.push(`"${cartItem.name}" - Ralat: ${error.message}`);
+      }
+    }
+    
+    // Save orders
+    localStorage.setItem('orders', JSON.stringify(orders));
+    
+    // Re-populate select
+    populateItemSelect();
+    
+    // Show results
+    let message = `✅ Berjaya hantar ${successCount} pesanan!`;
+    if(failureReasons.length > 0){
+      message += `\n\n❌ Gagal: ${failureReasons.length}\n${failureReasons.join('\n')}`;
+    }
+    alert(message);
+    
+    // Clear cart
+    cart = [];
+    renderCart();
+    
+    // Show orders if visible
+    if(showing) renderOrders();
+    
+  } finally{
+    btn.disabled = false;
+    btn.innerHTML = originalText;
+  }
+});
+
+
+// --- Show & Delete order ---
+let showing=false;
+const checkBtn=document.getElementById('checkOrdersBtn');
+const ordersTbody=document.getElementById('ordersTbody');
+const myOrdersDiv=document.getElementById('myOrdersDiv');
+
+function renderOrders(){
+  const orders = JSON.parse(localStorage.getItem('orders')||'[]');
+  const myOrders = orders.filter(o=>o.email===currentUser.email);
+  ordersTbody.innerHTML='';
+if(myOrders.length===0){
+  ordersTbody.innerHTML='<tr><td colspan="5">Tiada order.</td></tr>';
+}
+else{
+  myOrders.forEach(o=>{
+
+      const tr=document.createElement('tr');
+      const canDelete=o.status==='pending';
+      const isRejected=o.status==='rejected';
+      
+      let actionCell='<span style="color:#999;">-</span>';
+      if(canDelete){
+        actionCell='<button class="delete-btn">Padam</button>';
+      }else if(isRejected){
+        actionCell='<span class="reason-cell" style="color:#d32f2f; font-style:italic;">Memuat...</span>';
+      }
+      
+      tr.innerHTML=`<td>${o.item}</td><td>${o.qty}</td><td>${o.status}</td><td>${o.date}</td><td>${actionCell}</td>`;
+      ordersTbody.appendChild(tr);
+      
+      if(canDelete){
+        tr.querySelector('.delete-btn').addEventListener('click',async e=>{
+          const deleteBtn=e.target;
+          const originalText=deleteBtn.innerHTML;
+          try{
+            deleteBtn.disabled=true; deleteBtn.innerHTML='<span class="loading">●</span>';
+            const allOrders=JSON.parse(localStorage.getItem('orders')||'[]');
+            const items=JSON.parse(localStorage.getItem('itemsStock')||'[]');
+            const idxInAll=allOrders.findIndex(order=>order.email===currentUser.email && order.item===o.item && order.date===o.date);
+            if(idxInAll!==-1){
+              const itemIdx=items.findIndex(i=>i.name===o.item);
+              if(itemIdx!==-1){
+                items[itemIdx].stock+=o.qty;
+                localStorage.setItem('itemsStock',JSON.stringify(items));
+                if(typeof isConfigured==='function' && isConfigured()){ await updateItem(o.item,items[itemIdx].stock); }
+                populateItemSelect();
+              }
+              if(typeof isConfigured==='function' && isConfigured()){ await deleteOrder(currentUser.email,o.item,null); }
+              allOrders.splice(idxInAll,1); localStorage.setItem('orders',JSON.stringify(allOrders));
+              renderOrders();
+            }
+          } catch(err){ console.error(err); deleteBtn.disabled=false; deleteBtn.innerHTML=originalText; }
+        });
+      }else if(isRejected && typeof getRejectionReason==='function'){
+        // Fetch rejection reason for rejected orders
+        getRejectionReason(o.email, o.item).then(reason => {
+          const reasonSpan = tr.querySelector('.reason-cell');
+          reasonSpan.textContent = reason || 'Tiada alasan dinyatakan';
+          reasonSpan.style.fontStyle = 'normal';
+        }).catch(() => {
+          const reasonSpan = tr.querySelector('.reason-cell');
+          reasonSpan.textContent = 'Tiada alasan dinyatakan';
+          reasonSpan.style.fontStyle = 'normal';
+        });
+      }
+    });
+  }
+}
+
+// Event for the View Stock Item button
+document.getElementById('lihatStokBtn').addEventListener('click', function(e) {
+  const btn = e.target;
+  btn.classList.add('loading');
+  btn.innerHTML = 'Memproses... <span class="loading">●</span>';
+  setTimeout(() => { window.location.href = 'stock.html'; }, 400);
+});
+
+// Event for the Log Out button
+document.getElementById('logoutBtn').addEventListener('click', function(e) {
+  const btn = e.target;
+  btn.classList.add('loading');
+  btn.innerHTML = 'Log Keluar... <span class="loading">●</span>';
+  setTimeout(() => {
+    localStorage.removeItem('currentUser');
+    window.location.href = 'index.html';
+  }, 400);
+});
+
+// Event for the Check My Order button
+document.getElementById('checkOrdersBtn').addEventListener('click', function(e) {
+  const btn = e.target;
+  btn.classList.add('loading');
+  btn.innerHTML = 'Memproses... <span class="loading">●</span>';
+  setTimeout(() => {
+    btn.classList.remove('loading');
+    btn.innerHTML = 'Semak Pesanan Saya';
+    showing=!showing; myOrdersDiv.style.display=showing?'block':'none'; if(showing) renderOrders();
+  }, 400);
+});
+</script>
+<script>
+// Keyboard Navigation for Buttons
+document.addEventListener("DOMContentLoaded", function() {
+  let currentFocusIndex = 0;
+  let buttons = Array.from(document.querySelectorAll("button"));
+
+  function focusButton(index) {
+    buttons = Array.from(document.querySelectorAll("button"));
+    if (buttons.length === 0) return;
+    
+    index = (index + buttons.length) % buttons.length;
+    buttons.forEach(btn => btn.classList.remove("keyboard-focused"));
+    buttons[index].classList.add("keyboard-focused");
+    buttons[index].focus();
+    currentFocusIndex = index;
+  }
+
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      focusButton(currentFocusIndex - 1);
+    } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      focusButton(currentFocusIndex + 1);
+    }
+    else if (e.key === "Enter") {
+      const focused = document.querySelector("button.keyboard-focused");
+      if (focused) {
+        e.preventDefault();
+        focused.click();
+      }
+    }
+  });
+
+  if (buttons.length > 0) {
+    focusButton(0);
+  }
+});
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
