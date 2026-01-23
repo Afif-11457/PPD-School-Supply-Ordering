@@ -954,9 +954,10 @@ function handleFindUser(email) {
       return ContentService.createTextOutput(JSON.stringify({ success: false, message: 'Pengguna tidak dijumpai' })).setMimeType(ContentService.MimeType.JSON);
     }
     
-    const data = sheet.getRange(2, 1, lastRow - 1, 7).getValues(); // read only necessary columns
+    const data = sheet.getRange(2, 1, lastRow - 1, 5).getValues(); // read only 5 necessary columns (A-E)
     const checkEmail = String(email).trim().toLowerCase();
     Logger.log('FindUser: Searching for email: [' + checkEmail + '] in ' + data.length + ' rows');
+    Logger.log('FindUser: Sheet columns structure: [0]=Name, [1]=Email, [2]=Password, [3]=RegDate, [4]=Hint');
     
     for (let i = 0; i < data.length; i++) {
       const sheetEmail = (data[i][1] || '').toString().trim().toLowerCase();
@@ -966,10 +967,10 @@ function handleFindUser(email) {
         const user = { 
           name: data[i][0], 
           email: data[i][1], 
-          hint: data[i][6] || '',
-          registered_date: data[i][5] || '' 
+          hint: data[i][4] || '',  // Column E (index 4) = Hint Word
+          registered_date: data[i][3] || ''  // Column D (index 3) = Tarikh Daftar
         };
-        Logger.log('FindUser SUCCESS: Found user - ' + JSON.stringify(user));
+        Logger.log('FindUser SUCCESS: Found user - Name: ' + user.name + ', Email: ' + user.email + ', Hint: [' + user.hint + ']');
         Logger.log('FindUser completed in ' + (new Date().getTime() - start) + 'ms');
         return ContentService.createTextOutput(JSON.stringify({ success: true, user: user })).setMimeType(ContentService.MimeType.JSON);
       }
